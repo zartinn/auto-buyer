@@ -1,0 +1,9 @@
+.billing-modal {
+    input:not(:last-child) {
+        margin-bottom: 10px;
+    }
+
+    [aria-label="checkbox"], [aria-label="select"] {
+        margin-bottom: 10px;
+    }
+}

@@ -1,0 +1,12 @@
+.app {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    header {
+        margin-bottom: 10px;
+    }
+    .home {
+        flex-grow: 1;
+    }
+}

@@ -1,0 +1,48 @@
+.tab-container {
+    height: 100%;
+    webview {
+        height: 800px;
+        border: 3px solid black;
+    }
+    .chakra-tabs {
+        height: 100%;
+        [aria-label="tab-list"] {
+            height: 70px;
+            overflow-x: auto;
+            overflow-y: hidden;
+        }
+        &__tablist  {
+            height: 5%;
+            [aria-label="add-job"] {
+                margin-right: 20px;
+            }
+            button[aria-label="tab-job"] {
+                margin-right: 5px;
+                max-width: 150px;
+                span {
+                    display: block;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    margin-right: 15px;
+                }
+                box-shadow: none;
+                &[aria-selected=true] {
+                    background-color: rgba(#2b6cb0, 0.2);
+                }
+            }
+        }
+        .panels {
+            height: 95%;
+            .chakra-tabs__tab-panels, .chakra-tabs__tab-panel {
+                height: 100%;
+            }
+        }
+    }
+    .chakra-tabs__tablist {
+    }
+}
+
+.table {
+    box-shadow: 0px 0px 10px 0px #bdbdbd;
+}

@@ -1,0 +1,13 @@
+@mixin theming {
+    --background-color: black;
+    --foreground-color: white;
+  
+    // background-color: var(--background-color);
+    // color: var(--foreground-color);
+    transition: background-color 300ms, color 300ms;
+  
+    // * {
+    //   color: var(--foreground-color);
+    //   transition: color 300ms;
+    // }
+}

@@ -1,0 +1,84 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "auto-buyer-foreground": {
+      "projectType": "application",
+      "root": "projects/auto-buyer-foreground",
+      "sourceRoot": "projects/auto-buyer-foreground/src",
+      "architect": {
+        "build": {
+          "builder": "@zartin/react-ng:build"
+        },
+        "serve": {
+          "builder": "@zartin/react-ng:serve",
+          "options": {
+              "webpackConfigPath": "projects/auto-buyer-foreground/webpack.config.js"
+          }
+        }
+      }
+    },
+    "auto-buyer-electron": {
+      "root": "projects/auto-buyer-electron",
+      "sourceRoot": "projects/auto-buyer-electron/src",
+      "projectType": "application",
+      "prefix": "auto-buyer-electron",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "nx-electron:build",
+          "options": {
+            "outputPath": "dist/apps/auto-buyer-electron",
+            "main": "projects/auto-buyer-electron/src/main.ts",
+            "tsConfig": "projects/auto-buyer-electron/tsconfig.app.json",
+            "assets": [
+              "projects/auto-buyer-electron/src/assets/sound.wav"
+            ],
+            "externalDependencies": ["puppeteer", "puppeteer-extra", "puppeteer-extra-plugin-recaptcha"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "projects/auto-buyer-electron/src/environments/environment.ts",
+                  "with": "projects/auto-buyer-electron/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "nx-electron:execute",
+          "options": {
+            "buildTarget": "auto-buyer-electron:build",
+            "waitUntilTargets": ["auto-buyer-foreground:serve"],
+            "inspect": false,
+            "args": ["--remote-debugging-port=45678"]
+          }
+        },
+        "package": {
+          "builder": "nx-electron:package",
+          "options": {
+            "name": "auto-buyer-electron",
+            "frontendProject": "auto-buyer-frontend",
+            "outputPath": "dist/packages",
+            "prepackageOnly": true
+          }
+        },
+        "make": {
+          "builder": "nx-electron:make",
+          "options": {
+            "name": "auto-buyer-electron",
+            "frontendProject": "auto-buyer-frontend",
+            "outputPath": "dist/executables"
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "auto-buyer-foreground"
+}
